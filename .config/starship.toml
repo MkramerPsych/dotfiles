@@ -1,0 +1,113 @@
+# starship.toml
+
+add_newline = true
+palette = "default"
+
+format = """
+[╭](fg:separator)\
+$shell\
+$username\
+$os\
+$hostname\
+$directory\
+$status\
+$fill\
+$git_branch\
+$git_status\
+$line_break\
+[╰](fg:separator)\
+$character\
+"""
+
+###########################################
+
+[palettes.default]
+prompt_ok  = "#a6da95"
+prompt_err = "#ed8796"
+icon       = "#b8c0e0"
+separator  = "#cad3f5"
+background = "#363a4f"
+
+shell      = "#181926"
+os         = "#181926"
+git_branch = "#181926"
+git_status = "#181926"
+username   = "#181926"
+hostname   = "#181926"
+directory  = "#181926"
+duration   = "#181926"
+status     = "#181926"
+
+###########################################
+
+[fill]
+symbol=' '
+disabled = false
+
+[character]
+success_symbol = "[󰄾](fg:prompt_ok)"
+error_symbol = "[󰄾](fg:prompt_err)"
+
+[username]
+format = "[ $user ](bg:background)"
+show_always = true
+
+[hostname]
+format = "[ $hostname](bg:background)[](fg:background)"
+disabled = false
+ssh_symbol = ""
+ssh_only = false
+
+[os]
+format = "[](fg:background bg:os)[ $symbol](fg:icon bg:shell)[](fg:os bg:background)"
+disabled = false
+
+[os.symbols]
+Linux = ""
+Macos = ""
+Windows = ""
+
+[shell]
+format = "[─](fg:separator)[](fg:shell)[$indicator](fg:icon bg:shell)[](fg:shell bg:background)"
+disabled = false
+zsh_indicator = ""
+bash_indicator = ""
+fish_indicator = "󰈺"
+
+[directory]
+format = "[─](fg:separator)[](fg:directory)[](fg:icon bg:directory)[](fg:directory bg:background)[ $path](bg:background)[](fg:background)"
+truncate_to_repo = false
+truncation_length = 0
+
+[git_branch]
+format = "[](fg:git_branch)[](fg:icon bg:git_branch)[](fg:git_branch bg:background)[ $branch](bg:background)[](fg:background)"
+
+[git_status]
+format = "[─](fg:separator)[](fg:git_status)[](fg:icon bg:git_status)[](fg:git_status bg:background)[ $all_status ](bg:background)[](fg:background)"
+conflicted = ''
+ahead = 'ahead 󰬫'
+behind = 'behind 󰬩'
+diverged = 'diverged '
+up_to_date = '󰗠'
+untracked = 'untracked 󱍊'
+stashed = 'stashed '
+modified = 'modified '
+staged = '[++\($count\)](green)'
+renamed = 'renamed '
+deleted = 'deleted '
+
+[status]
+format = "[─](fg:separator)[](fg:status)[](fg:icon bg:status)[](fg:status bg:background)[ $status](bg:background)[](fg:background)"
+pipestatus = true
+pipestatus_separator = "-"
+pipestatus_segment_format = "$status"
+pipestatus_format = "[─](fg:separator)[](fg:status)[](fg:icon bg:status)[](fg:status bg:background)[ $pipestatus](bg:background)[](fg:background)"
+disabled = false
+
+[cmd_duration]
+format = "[─](fg:separator)[](fg:duration)[󱐋](fg:icon bg:duration)[](fg:duration bg:background)[ $duration](bg:background)[](fg:background)"
+min_time = 1000
+
+[time]
+format = "[](fg:duration)[󰥔](fg:icon bg:duration)[](fg:duration bg:background)[ $time](bg:background)[](fg:background)"
+disabled = false
