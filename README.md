@@ -4,14 +4,15 @@
 
     Git
     Curl
+    Bash or Zsh
 
 ### Install
 
-Install config tracking in your $HOME by running:
+No prep necessary! Install the dotfiles directly to your $HOME directory (with backup of all conflicting files to $HOME/.dots-backup) by running:
 
 `curl -fsSL https://raw.githubusercontent.com/MkramerPsych/dotfiles/master/.bin/install.sh | $SHELL`
 
-This requires the public key of the machine where the setup is being installed to be registered as authorized on Bitbucket.
+This requires the public key of the machine where the setup is being installed to be registered as authorized on Github.
 
 
 ### Acknowledgements 
