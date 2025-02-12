@@ -76,13 +76,13 @@ alias grep='rg'
 alias du='dust'
 
 # find aliases [FD]
-alias find='fd'
+# alias find='fd'
 alias filecount='fd --type f | wc -l'
 alias dircount='fd --type d | wc -l'
 alias emptyfilecount='fd --type f -empty | wc -l'
 alias emptydircount='fd --type d -empty | wc -l'
 
-# file exploration aliases [FELIX]
+# file exploration aliases [YAZI]
 
 # terminal multiplexer [ZELLIJ]
 alias zj='zellij'
