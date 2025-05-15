@@ -3,6 +3,45 @@
 # Max Kramer
 #
 
+mosh_aws() {
+    local friendly_name=$1
+    
+    # Make sure the config file exists and is readable
+    local ssh_config="$HOME/.ssh/config"
+    if [ ! -r "$ssh_config" ]; then
+        echo "Error: Can't read SSH config file at $ssh_config"
+        return 1
+    fi
+    
+    # Extract instance ID and remove any trailing parenthesis
+    local instance_id=$(grep -A 4 "Host $friendly_name" "$ssh_config" | grep ProxyCommand | sed -n 's/.*get_aws_ip\.sh \([^ )]*\).*/\1/p')
+    
+    if [ -z "$instance_id" ]; then
+        echo "Error: Could not find instance ID for friendly name $friendly_name"
+        return 1
+    fi
+    
+    local ip=$(~/.ssh/get_aws_ip.sh "$instance_id")
+    
+    if [ -z "$ip" ]; then
+        echo "Error: Could not get IP address for instance $instance_id"
+        return 1
+    fi
+    
+    # Read other SSH options from config
+    local user=$(grep -A 4 "Host $friendly_name" "$ssh_config" | grep "User" | awk '{print $2}')
+    local key=$(grep -A 4 "Host $friendly_name" "$ssh_config" | grep "IdentityFile" | awk '{print $2}')
+    
+    # Set defaults if not found
+    user=${user:-"ubuntu"}
+    key=${key:-"~/.ssh/id_ed25519"}
+    
+    # Expand ~ in key path if present
+    key="${key/#\~/$HOME}"
+    
+    echo "Connecting to $user@$ip using key $key"
+    mosh --ssh="ssh -i $key" "$user@$ip"
+}
 
 # # ex - archive extractor
 # # usage: ex <file>
